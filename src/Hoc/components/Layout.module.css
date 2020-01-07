@@ -1,0 +1,15 @@
+
+.Content {
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    width: 50%;
+    height: 10rem;
+    box-shadow: 0 2px 3px #ccc;
+    text-align: center;
+    border-block: 2px white;
+    background-color: rgb(241, 213, 54);
+    padding: 16px;
+    box-sizing: content-box;
+}
