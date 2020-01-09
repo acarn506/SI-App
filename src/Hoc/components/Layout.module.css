@@ -1,15 +1,10 @@
-
-.Content {
-    margin-top: 80px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: auto;
-    width: 50%;
-    height: 10rem;
-    box-shadow: 0 2px 3px #ccc;
-    text-align: center;
-    border-block: 2px white;
-    background-color: rgb(241, 213, 54);
-    padding: 16px;
-    box-sizing: content-box;
-}
+.place-form {
+    list-style: none;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 90%;
+    max-width: 40rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 6px;
+    background: rgb(241, 213, 54);
+  }

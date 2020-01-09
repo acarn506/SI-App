@@ -8,7 +8,7 @@ const FirstPage = (props) => {
     return(
         <Layout>
             <h1>First Page</h1>
-            <Button to='/register'>Register</Button>
+            <Button to='/Register'>Register</Button>
             
             <Button to='/sign-in'>Sign-in</Button>
         </Layout>

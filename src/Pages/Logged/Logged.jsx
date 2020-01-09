@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '../../Hoc/components/Layout'
+import '../FormElements/Form.css'
 
 const Logged = (props) => {
     return(

@@ -45,16 +45,16 @@ export const validate = (value, validators) => {
       isValid = isValid && +value <= validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_EMAIL) {
-      isValid = isValid && /^\S+@\S+\.\S+$/.test(value);
+      isValid = isValid && /^\S+@\S+\.edu$/.test(value);
     }
     if (validator.type === VALIDATOR_TYPE_PATTERN) {
-        isValid = isValid && RegExp('[A-Z]{2}[0-9]{4}').test(value);
+        isValid = isValid && RegExp('[A-Za-z]{2}[0-9]{4}').test(value);
     }
     if (validator.type === VALIDATOR_TYPE_STRING) {
         isValid = isValid && /^[A-Za-z]+$/.test(value);
     }
     if (validator.type === VALIDATOR_TYPE_DATE) {
-        isValid = isValid && /^((0)[1-5])(\/)([0-2][0-9]|(3)[0-1])(\/)\d{4}$/.test(value);
+        isValid = isValid && /^((0)[1-5])(\/)([0-2][0-9]|(3)[0-1])(\/)2020$/.test(value);
     }
   }
   return isValid;
