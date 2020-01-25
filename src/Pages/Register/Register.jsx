@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {useForm} from '../FormElements/Hooks/form-hook'
 import Aux from '../../Hoc/components/Aux.jsx'
 import Input from '../FormElements/Input'
@@ -6,9 +6,15 @@ import {VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_PATTERN, VALIDATOR_STRING}
 import Button from '../FormElements/Button'
 import {AuthContext} from '../FormElements/Context/Context'
 import '../FormElements/Form.css'
+import LoadingSpinner from '../FormElements/LoadingSpinner'
+import ErrorModal from '../FormElements/Util/ErrorModal'
+
 
 const Register = () => {
        const auth = useContext(AuthContext);
+       const [isLoading, setIsLoading] = useState('')
+       const [error, setError] = useState('')
+
         //initial form state
        const [formState, inputHandler] = useForm(
            {
@@ -20,7 +26,7 @@ const Register = () => {
                     value: '',
                     isValid: false
                 },
-                Email: {
+                email: {
                     value: '',
                     isValid: false
                 },
@@ -37,14 +43,51 @@ const Register = () => {
         )
 
         //function call to backend
-        const registerSubmitHandler = event => {
+        const registerSubmitHandler = async event => {
             event.preventDefault()
-            console.log(formState.inputs)  
-            auth.login()
+
+            try {
+                setIsLoading(true)
+                const response = await fetch('http://localhost:3000/api/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: formState.inputs.firstName.value,
+                        lastName: formState.inputs.lastName.value, 
+                        email: formState.inputs.email.value,
+                        netID: formState.inputs.netID.value,
+                        sessionCode: formState.inputs.sessionCode.value
+                    })
+                })      
+            //response 
+            const responseData = await response.json()
+
+            //if 400 or 500 is true
+            if (!response.ok) {
+                throw new Error(responseData.message)
+                //goes to catch
+            }
+
+            console.log(responseData)
+            setIsLoading(false)
+            auth.login() 
+            } catch (err) {
+                    setIsLoading(false)
+                    setError(err.message || "Something went wrong, please try again.")
+                } 
+        } 
+
+        const errorHandler = () => {
+            setError(null)
         }
 
         return(
+        <React.Fragment>
+            <ErrorModal error={error} onClear={errorHandler} />
             <Aux>
+                {isLoading && <LoadingSpinner asOverlay/>}
                 <h2 className="title">Fill in these fields</h2>
                 <form  className='place-form' onSubmit={registerSubmitHandler}>
                     <Input 
@@ -66,7 +109,7 @@ const Register = () => {
                     onInput={inputHandler}
                     />
                     <Input 
-                    id='Email'
+                    id='email'
                     element="input" 
                     type='email' 
                     label='Horizon Email'
@@ -96,6 +139,7 @@ const Register = () => {
                 </form>
                 <Button to='/sign-in'>Switch to Sign-in</Button>
             </Aux>
+        </React.Fragment>
         )
 }
     

@@ -48,5 +48,5 @@ const App = () => {
 
 export default App
 //example date in background of input slot
-//session code for register page
+
 

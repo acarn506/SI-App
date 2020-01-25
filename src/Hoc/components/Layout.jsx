@@ -1,13 +1,13 @@
 import React from 'react'
-import classes from './Layout.module.css'
+import './Layout.css'
 import Aux from './Aux'
 
 const Layout = (props) => {
     return(
         <Aux>
-            <main className={classes.Content}>
+            <div className="place-form">
                 {props.children}
-            </main>
+            </div>
         </Aux>
     )
 }
