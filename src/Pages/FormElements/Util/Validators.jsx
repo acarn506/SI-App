@@ -8,6 +8,7 @@ const VALIDATOR_TYPE_FILE = 'FILE';
 const VALIDATOR_TYPE_PATTERN = 'PATTERN';
 const VALIDATOR_TYPE_STRING = 'STRING';
 const VALIDATOR_TYPE_DATE = 'DATE';
+const VALIDATOR_TYPE_NUMBER = 'NUMBER';
 
 export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
@@ -25,6 +26,8 @@ export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 export const VALIDATOR_PATTERN = () => ({ type: VALIDATOR_TYPE_PATTERN});
 export const VALIDATOR_STRING = () => ({ type: VALIDATOR_TYPE_STRING});
 export const VALIDATOR_DATE = () => ({ type: VALIDATOR_TYPE_DATE});
+export const VALIDATOR_NUMBER = () => ({ type: VALIDATOR_TYPE_NUMBER});
+
 
 export const validate = (value, validators) => {
   let isValid = true;
@@ -45,7 +48,7 @@ export const validate = (value, validators) => {
       isValid = isValid && +value <= validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_EMAIL) {
-      isValid = isValid && /^\S+@\S+\.edu$/.test(value);
+      isValid = isValid && /^\S+@\S+\.csueastbay.edu$/.test(value);
     }
     if (validator.type === VALIDATOR_TYPE_PATTERN) {
         isValid = isValid && RegExp('[A-Za-z]{2}[0-9]{4}').test(value);
@@ -56,6 +59,10 @@ export const validate = (value, validators) => {
     if (validator.type === VALIDATOR_TYPE_DATE) {
         isValid = isValid && /^((0)[1-5])(\/)([0-2][0-9]|(3)[0-1])(\/)2020$/.test(value);
     }
+    if (validator.type === VALIDATOR_TYPE_NUMBER) {
+      isValid = isValid && RegExp('[0-9]').test(value);
+  }
+
   }
   return isValid;
 };

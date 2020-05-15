@@ -1,18 +1,17 @@
 import React from 'react'
 import Layout from '../../Hoc/components/Layout'
-import './FirstPage.module.css'
+import './ThanksReg.css'
 import Button from '../FormElements/Button'
 
-const FirstPage = (props) => {
+const ThanksReg = (props) => {
 
     return(
         <Layout>
-            <h1>First Page</h1>
-            <Button to='/Register'>Register</Button>
+            <h1 className='text'>Thanks for registering, please sign-in.</h1>
             
             <Button to='/sign-in'>Sign-in</Button>
         </Layout>
     )
 }
 
-export default FirstPage 
+export default ThanksReg 

@@ -11,5 +11,6 @@
 
   .title {
     color: rgb(8, 14, 11);
-    font-family: monospace;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
   }

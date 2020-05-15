@@ -10,6 +10,7 @@ import LoadingSpinner from '../FormElements/LoadingSpinner'
 import ErrorModal from '../FormElements/Util/ErrorModal'
 
 
+
 const Register = () => {
        const auth = useContext(AuthContext);
        const [isLoading, setIsLoading] = useState('')
@@ -18,11 +19,11 @@ const Register = () => {
         //initial form state
        const [formState, inputHandler] = useForm(
            {
-                firstName: {
+                fname: {
                     value: '',
                     isValid: false
                 },
-                lastName: {
+                lname: {
                     value: '',
                     isValid: false
                 },
@@ -45,17 +46,17 @@ const Register = () => {
         //function call to backend
         const registerSubmitHandler = async event => {
             event.preventDefault()
+            setIsLoading(true)
 
             try {
-                setIsLoading(true)
-                const response = await fetch('http://localhost:3000/api/users/register', {
+                const response = await fetch('https://sisessionapp.herokuapp.com/api/attendees', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        firstName: formState.inputs.firstName.value,
-                        lastName: formState.inputs.lastName.value, 
+                        fname: formState.inputs.fname.value,
+                        lname: formState.inputs.lname.value, 
                         email: formState.inputs.email.value,
                         netID: formState.inputs.netID.value,
                         sessionCode: formState.inputs.sessionCode.value
@@ -69,10 +70,11 @@ const Register = () => {
                 throw new Error(responseData.message)
                 //goes to catch
             }
-
-            console.log(responseData)
             setIsLoading(false)
-            auth.login() 
+            console.log("here")
+            auth.signIn() 
+        
+
             } catch (err) {
                     setIsLoading(false)
                     setError(err.message || "Something went wrong, please try again.")
@@ -91,7 +93,7 @@ const Register = () => {
                 <h2 className="title">Fill in these fields</h2>
                 <form  className='place-form' onSubmit={registerSubmitHandler}>
                     <Input 
-                    id='firstName'
+                    id='fname'
                     element="input" 
                     type='text' 
                     label='First Name'
@@ -100,7 +102,7 @@ const Register = () => {
                     onInput = {inputHandler}
                     />
                     <Input 
-                    id='lastName'
+                    id='lname'
                     element="input" 
                     type='text' 
                     label="Last Name"
@@ -131,7 +133,7 @@ const Register = () => {
                     element="input" 
                     type='text' 
                     label="Session Code"
-                    validators={[VALIDATOR_REQUIRE(), VALIDATOR_STRING()]}
+                    validators={[VALIDATOR_REQUIRE()]}
                     errorText="Session Code is invalid"
                     onInput={inputHandler}
                     />

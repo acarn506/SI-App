@@ -1,0 +1,26 @@
+
+.header {
+    font-family: 'Ubuntu', sans-serif;
+    padding: 20px;
+    padding-bottom: 32px;
+    background-color:  #ff0055;
+    color: white;
+    margin-bottom: 34px;
+}
+
+.header-tag {
+    top: 10px;
+    left: 30px;
+    position: fixed;
+    color: white;
+    font-family: 'Merriweather', serif;
+}
+
+.footer {
+    font-size: 13px;
+    font-family: 'Merriweather', serif;
+    margin-top: 120px;
+    text-align: center;
+    left: 454px;
+    color: white;
+}

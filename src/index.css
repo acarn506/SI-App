@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color: rgb(209, 119, 209);
+  scroll-behavior: smooth;
 }
 
 code {
