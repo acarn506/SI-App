@@ -1,0 +1,101 @@
+.body {
+  display: inline-block;
+  background-color: rgb(202, 212, 212);
+  width: 940px;
+  height: 550px;
+  border-radius: 15px;
+}
+
+.header {
+  margin: 30px;
+  background-color: aliceblue;
+  color: black;
+  font-weight: bold;
+}
+
+section {
+  height: 70px;
+  width: 150px;
+  background-color: aliceblue;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  font-size: 35px;
+  margin: 5px;
+  padding-top: 25px;
+}
+.A {
+  color: blue;
+}
+
+.B {
+  color: purple;
+}
+
+.C {
+  color: orange;
+  margin-right: 30px;
+}
+
+p {
+  font-weight: bold;
+  font-size: 20px;
+  width: 195px;
+  margin: 5px;
+}
+
+.sectionContainer {
+  margin: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.listContainer {
+  margin: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.studentList {
+  height: 300px;
+  width: 180px;
+  background-color: aliceblue;
+}
+
+table {
+  background-color: aliceblue;
+  height: 300px;
+  width: 180px;
+}
+
+td {
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size: 18px;
+  border: solid 2px rgb(135, 206, 224);
+}
+
+th {
+  font-size: 20px;
+  border: solid 2px rgb(135, 206, 224);
+}
+
+thead tr {
+  color: black;
+  font-weight: bold;
+}
+
+.listHeader {
+  position: absolute;
+  top: 300px;
+  left: 694px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.react-datepicker {
+  position: relative;
+  top: 320px;
+  left: -50px;
+}
