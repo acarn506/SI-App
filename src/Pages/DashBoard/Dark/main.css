@@ -1,1 +1,230 @@
-/* No CSS *//*# sourceMappingURL=main.css.map */
+.bodylight {
+  font-family: Montserrat;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  height: 100%;
+  --bg: #fcfcfc;
+  --bg-panel: #ebebeb;
+  --color-headings: #0077ff;
+  --color-text: #333333;
+  background-color: var(--bg);
+}
+
+.bodydark {
+  font-family: Montserrat;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  height: 100%;
+  --bg: #333333;
+  --bg-panel: #434343;
+  --color-headings: #3694ff;
+  --color-text: #747070;
+  background-color: var(--bg);
+}
+
+.container {
+  background-color: var(--bg-panel);
+  margin: 1em;
+  padding: 1em;
+  width: 720px;
+  height: 630px;
+  border-radius: 15px;
+}
+
+.statContainer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (auto)[3];
+      grid-template-columns: repeat(3, auto);
+  -ms-grid-rows: (auto)[2];
+      grid-template-rows: repeat(2, auto);
+      grid-template-areas: "pA pB pC" "A B C";
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mainContainer {
+  height: 450px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 30% 30% 40%;
+      grid-template-columns: 30% 30% 40%;
+  -ms-grid-rows: 20% auto;
+      grid-template-rows: 20% auto;
+      grid-template-areas: " . . listHeader" "dropdown buttons table";
+}
+
+.header {
+  margin: 10px;
+  padding: 5px;
+  background-color: #fcfcfc;
+  color: #333333;
+  font-weight: bold;
+}
+
+section {
+  height: 60px;
+  width: 40%;
+  background-color: #fcfcfc;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  font-size: 35px;
+  margin: 5px;
+  padding-top: 25px;
+}
+
+p {
+  font-size: 20px;
+  font-weight: bold;
+  width: 195px;
+  margin: 5px;
+  color: var(--color-headings);
+}
+
+.A {
+  color: blue;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: A;
+}
+
+.B {
+  color: purple;
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: B;
+}
+
+.C {
+  color: orange;
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: C;
+}
+
+.pA {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: pA;
+}
+
+.pB {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: pB;
+}
+
+.pC {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: pC;
+}
+
+table {
+  background-color: #fcfcfc;
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: table;
+}
+
+td {
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  border: solid 2px #333333;
+  color: var(--color-text);
+}
+
+th {
+  font-size: 20px;
+  font-weight: bold;
+  border: solid 2px #333333;
+  color: var(--color-text);
+}
+
+thead tr {
+  color: black;
+}
+
+.listHeader {
+  font-size: 25px;
+  font-weight: bold;
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: listHeader;
+  margin: 0px;
+  margin-top: 50px;
+  color: var(--color-headings);
+}
+
+div.Dropdown-root {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: dropdown;
+  top: -160px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  color: var(--color-text);
+}
+
+.toggle-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 25px;
+  color: var(--color-text);
+}
+
+.switchTitle {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  font-size: 16px;
+  margin: 0px;
+  color: var(--color-headings);
+}
+
+.switch {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.buttonContainer {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: buttons;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+button,
+input {
+  width: 80%;
+  margin: 4px;
+  padding: 5px;
+  color: var(--color-text);
+}
+/*# sourceMappingURL=main.css.map */
