@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import Name from "./components/Name.jsx";
 import Netid from "./components/Netid";
+import Course from "./components/Course";
+import "./components/component.css";
+
+//Session-Type: Weekly or review
 
 class Register extends Component {
   state = {
@@ -10,20 +13,32 @@ class Register extends Component {
     lName: "",
     netID: "",
     course: "",
+    courseList: ["CS401-01", "CS401-02", "ENGL115-01"],
     sessionCode: "",
     password: ""
   };
 
   roleHandler(event) {
+    console.log("switch role");
     this.setState({
       role: event
     });
   }
 
   handleChange(event) {
+    //console.log("event", event.target);
     const { name, value } = event.target;
+    console.log("name: ", name, "value: ", value);
     this.setState({
       [name]: value
+    });
+    //console.log("NetID", this.state.netID);
+  }
+
+  courseHandler(course) {
+    console.log("Course", course);
+    this.setState({
+      course: course
     });
   }
 
@@ -33,6 +48,7 @@ class Register extends Component {
     this.setState({
       currentStep: currentStep
     });
+    console.log("next", currentStep);
   }
 
   prev() {
@@ -41,6 +57,7 @@ class Register extends Component {
     this.setState({
       currentStep: currentStep
     });
+    console.log("prev", currentStep);
   }
 
   get prevButton() {
@@ -70,15 +87,13 @@ class Register extends Component {
   }
 
   render() {
+    let role = this.state.role === "student" ? "Student" : "SI Leader";
+
     let choice = null;
     switch (this.state.role) {
       case "student":
         choice = (
           <React.Fragment>
-            <Name
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange.bind(this)}
-            />
             <Netid
               currentStep={this.state.currentStep}
               handleChange={this.handleChange.bind(this)}
@@ -87,20 +102,34 @@ class Register extends Component {
         );
         break;
       case "siLeader":
+        choice = (
+          <React.Fragment>
+            <Netid
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange.bind(this)}
+            />
+            <Course
+              courseList={this.state.courseList}
+              handleChange={this.courseHandler.bind(this)}
+              currentStep={this.state.currentStep}
+            />
+          </React.Fragment>
+        );
         break;
       default:
         choice = <h1>Some type of Problem!</h1>;
     }
 
     return (
-      <div>
-        {choice}
+      <div className="regContainer">
+        <h1>{`Register ${role}`}</h1>
+        <div className="componentContainer">{choice}</div>
         {this.prevButton}
         {this.nextButton}
-        <button onClick={() => this.roleHandler.bind(this, "student")}>
+        <button onClick={this.roleHandler.bind(this, "student")}>
           Student
         </button>
-        <button onClick={() => this.roleHandler.bind(this, "siLeader")}>
+        <button onClick={this.roleHandler.bind(this, "siLeader")}>
           SI Leader
         </button>
       </div>

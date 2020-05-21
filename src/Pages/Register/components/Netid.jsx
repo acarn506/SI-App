@@ -1,7 +1,7 @@
 import React from "react";
 
 const Netid = props => {
-  if (props.currentStep !== 1) {
+  if (props.currentStep !== 0) {
     return null;
   }
   return (
@@ -9,9 +9,9 @@ const Netid = props => {
       <lable htmlFor="id">Net ID</lable>
       <input
         type="text"
+        name="netID"
         placeholder="Enter Net ID"
-        value={props.netID}
-        onChange={props.changeHandler}
+        onChange={props.handleChange}
       />
     </div>
   );

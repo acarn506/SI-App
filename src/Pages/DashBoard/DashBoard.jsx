@@ -1,21 +1,39 @@
 import React, { Component } from "react";
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
+import Dropdown from "../FormElements/Dropdown";
 import Switch from "../FormElements/Switch";
 import "./Dark/main.css";
+import API from "../FormElements/Util/API";
 
 class DashBoard extends Component {
   state = {
     startDate: new Date(),
-    sessions: 3,
-    attendees: 6,
-    totatlVisits: 25,
+    siInfo: {
+      sessions: 3,
+      attendees: 6,
+      totatlVisits: 25
+    },
     idList: ["as3659", "lo6598", "df6549", "as1236"],
     dateList: ["8/10/20", "8/14/20", "8/26/20"],
+    selctedDate: "",
     studentID: "",
     theme: "light",
-    switchValue: false
+    switchValue: false,
+    isLoading: true,
+    error: null
   };
+
+  async getPosts() {
+    const response = await API.get(`courses/`);
+    try {
+      const siInfo = response.data;
+      this.setState({
+        siInfo: siInfo,
+        isLoading: false
+      });
+    } catch (error) {
+      this.setState({ error, isLoading: false });
+    }
+  }
 
   handleChange = date => {
     this.setState({
@@ -53,6 +71,13 @@ class DashBoard extends Component {
     });
   }
 
+  dateHandler(date) {
+    console.log("Date", date);
+    this.setState({
+      selctedDate: date
+    });
+  }
+
   handleToggle() {
     let switchValue = this.state.switchValue;
     let theme = this.state.theme;
@@ -64,7 +89,14 @@ class DashBoard extends Component {
     });
   }
 
+  componentDidMount() {
+    this.getPosts();
+  }
+
   render() {
+    const { sessions, attendees, totatlVisits } = this.state.siInfo;
+    const { isLoading } = this.state.isLoading;
+
     let list = this.state.idList.map((id, i) => {
       return (
         <tr key={i}>
@@ -90,46 +122,67 @@ class DashBoard extends Component {
               onColor="#0077FF"
             />
           </div>
-          <div className="statContainer">
-            <p className="pA">Sessions</p>
-            <section className="A">{this.state.sessions}</section>
-            <p className="pB">Unique Students</p>
-            <section className="B">{this.state.attendees}</section>
-            <p className="pC">Visits</p>
-            <section className="C">{this.state.totatlVisits}</section>
-          </div>
+          {!isLoading ? (
+            <div className="statContainer">
+              <div className="A">
+                <p className="pA">Sessions</p>
+                <section>{sessions}</section>
+              </div>
+              <div className="B">
+                <p className="pB">Unique Students</p>
+                <section>{attendees}</section>
+              </div>
+              <div className="C">
+                <p className="pC">Visits</p>
+                <section>{totatlVisits}</section>
+              </div>
+            </div>
+          ) : (
+            <p>Loading...</p>
+          )}
+
           <div className="mainContainer">
-            <Dropdown
-              id="dropdown"
-              options={options}
-              onChange={this._onSelect}
-              placeholder="Select Session Date"
-            />
-            <div className="buttonContainer">
-              {/*<label>Student ID</label> */}
-              <input
-                type="text"
-                value={this.state.studentID}
-                placeholder="Enter Students ID"
-                onChange={this.studentIDHandler.bind(this)}
+            <div className="dd-container">
+              <Dropdown
+                id="dropdown"
+                title="Select Course"
+                name="course"
+                items={options}
+                onChange={this.dateHandler.bind(this)}
               />
-              <button type="submit" onClick={this.addStudent.bind(this)}>
-                Add Student
-              </button>
-              <button type="submit" onClick={this.removeStudent.bind(this)}>
-                Remove Student
-              </button>
             </div>
             <h3 className="listHeader">Attendees</h3>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th className="thI">#</th>
-                  <th className="thID">Student ID</th>
-                </tr>
-              </thead>
-              <tbody>{list}</tbody>
-            </table>
+            <div className="listContainer">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th className="thI">#</th>
+                    <th className="thID">Student ID</th>
+                  </tr>
+                </thead>
+                <tbody>{list}</tbody>
+              </table>
+              <div className="buttonContainer">
+                {/*<label>RemoveStudent</label> */}
+                <input
+                  className="inputD"
+                  type="text"
+                  value={this.state.studentID}
+                  placeholder="Enter Students ID"
+                  onChange={this.studentIDHandler.bind(this)}
+                />
+                {/* <button type="submit" onClick={this.addStudent.bind(this)}>
+                Add Student
+            </button> */}
+                <button
+                  type="submit"
+                  className="buttonR"
+                  onClick={this.removeStudent.bind(this)}
+                >
+                  Remove Student
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

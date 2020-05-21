@@ -1,0 +1,19 @@
+.regContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.componentContainer {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+}
+
+.dropdownContainer {
+  width: 80%;
+}
