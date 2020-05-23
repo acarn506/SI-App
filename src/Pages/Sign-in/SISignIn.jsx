@@ -3,7 +3,8 @@ import Aux from "../../Hoc/components/Aux";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_PATTERN,
-  VALIDATOR_DATE
+  VALIDATOR_DATE,
+  VALIDATOR_MINLENGTH
 } from "../FormElements/Util/Validators.jsx";
 import Input from "../FormElements/Input";
 import Button from "../FormElements/Button";
@@ -13,7 +14,7 @@ import { AuthContext } from "../FormElements/Context/Context";
 import LoadingSpinner from "../FormElements/LoadingSpinner";
 import ErrorModal from "../FormElements/Util/ErrorModal";
 
-const SignIn = () => {
+const SISignIn = () => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState("");
   const [error, setError] = useState("");
@@ -24,7 +25,7 @@ const SignIn = () => {
         value: "",
         isValid: false
       },
-      date: {
+      password: {
         value: "",
         isValid: false
       }
@@ -47,7 +48,7 @@ const SignIn = () => {
           },
           body: JSON.stringify({
             attended: formState.inputs.attended.value,
-            date: formState.inputs.date.value
+            password: formState.inputs.password.value
           })
         }
       );
@@ -86,20 +87,18 @@ const SignIn = () => {
             type="text"
             label="Net ID"
             validators={[VALIDATOR_REQUIRE(), VALIDATOR_PATTERN()]}
-            errorText="Please enter a valid Net ID."
+            errorText="Please enter a valid NetID."
             onInput={inputHandler}
           />
 
           <Input
-            //date allows any year
-            id="date"
+            id="password"
+            type="password"
+            label="Password"
             element="input"
-            type="text"
-            pattern="((0)[1-5])(\/)([0-2][0-9]|(3)[0-1])(\/)2020"
-            title="##/##/2020"
-            label="Date of Session"
-            validators={[VALIDATOR_REQUIRE(), VALIDATOR_DATE()]}
-            errorText="Please enter a valid Date."
+            placeholder="8 characters minimum"
+            validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(8)]}
+            errorText="8 characters minimum"
             onInput={inputHandler}
           />
           <Button type="submit" disabled={!formState.isValid}>
@@ -111,4 +110,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SISignIn;

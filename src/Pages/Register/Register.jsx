@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Netid from "./components/Netid";
 import Course from "./components/Course";
+import Password from "./components/Password";
 import "./components/component.css";
 
 //Session-Type: Weekly or review
@@ -44,7 +45,7 @@ class Register extends Component {
 
   next() {
     let currentStep = this.state.currentStep;
-    currentStep = currentStep >= 0 ? 1 : currentStep + 1;
+    currentStep = currentStep >= 1 ? 2 : currentStep + 1;
     this.setState({
       currentStep: currentStep
     });
@@ -76,7 +77,7 @@ class Register extends Component {
   get nextButton() {
     let currentStep = this.state.currentStep;
 
-    if (currentStep < 1) {
+    if (currentStep < 2) {
       return (
         <button type="button" onClick={this.next.bind(this)}>
           Next
@@ -113,6 +114,10 @@ class Register extends Component {
               handleChange={this.courseHandler.bind(this)}
               currentStep={this.state.currentStep}
             />
+            <Password
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange.bind(this)}
+            />
           </React.Fragment>
         );
         break;
@@ -123,8 +128,8 @@ class Register extends Component {
     return (
       <div className="regContainer">
         <h1>{`Register ${role}`}</h1>
+        <h2> CurrentStep {this.state.currentStep}</h2>
         <div className="componentContainer">{choice}</div>
-        {this.prevButton}
         {this.nextButton}
         <button onClick={this.roleHandler.bind(this, "student")}>
           Student

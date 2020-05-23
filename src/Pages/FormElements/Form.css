@@ -1,16 +1,17 @@
 .place-form {
-    list-style: none;
-    margin: 0 auto;
-    padding: 1rem;
-    width: 90%;
-    max-width: 40rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 6px;
-    background: rgb(241, 213, 54);
-  }
+  list-style: none;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 90%;
+  max-width: 40rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  background-color: #ebebeb;
+}
 
-  .title {
-    color: rgb(8, 14, 11);
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 18px;
-  }
+.title {
+  margin-top: 70px;
+  color: rgb(8, 14, 11);
+  font-family: "Ubuntu", sans-serif;
+  font-size: 18px;
+}

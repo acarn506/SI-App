@@ -1,4 +1,8 @@
 import React from "react";
+import {
+  VALIDATOR_REQUIRE,
+  VALIDATOR_PATTERN
+} from "../../FormElements/Util/Validators.jsx";
 
 const Netid = props => {
   if (props.currentStep !== 0) {
@@ -12,6 +16,7 @@ const Netid = props => {
         name="netID"
         placeholder="Enter Net ID"
         onChange={props.handleChange}
+        validators={[VALIDATOR_REQUIRE(), VALIDATOR_PATTERN()]}
       />
     </div>
   );

@@ -4,9 +4,9 @@ import Aux from "../../Hoc/components/Aux.jsx";
 import Input from "../FormElements/Input";
 import {
   VALIDATOR_REQUIRE,
-  VALIDATOR_EMAIL,
   VALIDATOR_PATTERN,
-  VALIDATOR_STRING
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_PATTERNC
 } from "../FormElements/Util/Validators";
 import Button from "../FormElements/Button";
 import { AuthContext } from "../FormElements/Context/Context";
@@ -14,7 +14,7 @@ import "../FormElements/Form.css";
 import LoadingSpinner from "../FormElements/LoadingSpinner";
 import ErrorModal from "../FormElements/Util/ErrorModal";
 
-const Register = () => {
+const RegisterSI = () => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState("");
   const [error, setError] = useState("");
@@ -22,23 +22,15 @@ const Register = () => {
   //initial form state
   const [formState, inputHandler] = useForm(
     {
-      fname: {
-        value: "",
-        isValid: false
-      },
-      lname: {
-        value: "",
-        isValid: false
-      },
-      email: {
-        value: "",
-        isValid: false
-      },
       netID: {
         value: "",
         isValid: false
       },
-      sessionCode: {
+      course: {
+        value: "",
+        isValid: false
+      },
+      password: {
         value: "",
         isValid: false
       }
@@ -60,11 +52,9 @@ const Register = () => {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            fname: formState.inputs.fname.value,
-            lname: formState.inputs.lname.value,
-            email: formState.inputs.email.value,
             netID: formState.inputs.netID.value,
-            sessionCode: formState.inputs.sessionCode.value
+            course: formState.inputs.course.value,
+            password: formState.inputs.password.value
           })
         }
       );
@@ -97,33 +87,6 @@ const Register = () => {
         <h2 className="title">Fill in these fields</h2>
         <form className="place-form" onSubmit={registerSubmitHandler}>
           <Input
-            id="fname"
-            element="input"
-            type="text"
-            label="First Name"
-            validators={[VALIDATOR_REQUIRE(), VALIDATOR_STRING()]}
-            errorText="Please enter a valid first name."
-            onInput={inputHandler}
-          />
-          <Input
-            id="lname"
-            element="input"
-            type="text"
-            label="Last Name"
-            validators={[VALIDATOR_REQUIRE(), VALIDATOR_STRING()]}
-            errorText="Please enter a valid last name."
-            onInput={inputHandler}
-          />
-          <Input
-            id="email"
-            element="input"
-            type="email"
-            label="Horizon Email"
-            validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
-            errorText="Please enter a valid email."
-            onInput={inputHandler}
-          />
-          <Input
             id="netID"
             element="input"
             type="text"
@@ -133,22 +96,32 @@ const Register = () => {
             onInput={inputHandler}
           />
           <Input
-            id="sessionCode"
+            id="course"
             element="input"
             type="text"
-            label="Session Code"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Session Code is invalid"
+            label="Course"
+            validators={[VALIDATOR_REQUIRE(), VALIDATOR_PATTERNC()]}
+            placeholder="Example: CS401-01"
+            errorText="Please Enter a valid course"
+            onInput={inputHandler}
+          />
+          <Input
+            id="password"
+            type="password"
+            label="Password"
+            element="input"
+            placeholder="8 characters minimum"
+            validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(8)]}
+            errorText="8 characters minimum"
             onInput={inputHandler}
           />
           <Button type="submit" disabled={!formState.isValid}>
             Submit
           </Button>
         </form>
-        <Button to="/sign-in">Switch to Sign-in</Button>
       </Aux>
     </React.Fragment>
   );
 };
 
-export default Register;
+export default RegisterSI;

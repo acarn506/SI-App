@@ -1,5 +1,5 @@
 .bodylight {
-  font-family: Montserrat;
+  font-family: "Merriweather", serif;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -16,7 +16,7 @@
 }
 
 .bodydark {
-  font-family: Montserrat;
+  font-family: "Merriweather", serif;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -61,16 +61,18 @@
 
 .header {
   margin: 10px;
+  margin-top: 40px;
   padding: 5px;
   background-color: var(--bg-header);
   color: var(--color-header);
   font-weight: bold;
+  font-family: "Merriweather", serif;
 }
 
 .pA,
 .pB,
 .pC {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   width: 195px;
   margin: 5px;
@@ -83,7 +85,7 @@
   background-color: #fcfcfc;
   border-radius: 0.3rem;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 35px;
   margin: 5px;
   color: green;
   grid-area: A;
@@ -114,7 +116,7 @@
 }
 
 .listHeader {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   grid-area: listHeader;
   margin: 0px;
@@ -138,7 +140,7 @@ table {
 }
 
 td {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   border: solid 2px #333333;
   color: var(--color-text);
@@ -146,7 +148,7 @@ td {
 }
 
 th {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
   border: solid 2px #333333;
   color: var(--color-text);
@@ -179,7 +181,7 @@ thead tr {
 
 .switchTitle {
   align-self: flex-end;
-  font-size: 16px;
+  font-size: 14px;
   margin: 0px;
   color: var(--color-headings);
 }
@@ -254,6 +256,10 @@ thead tr {
 
 /* DROPDOWN
 ============================================ */
+
+.dd-wrapper .dd-header {
+  margin-left: 20px;
+}
 
 @mixin styling() {
   background-color: white;

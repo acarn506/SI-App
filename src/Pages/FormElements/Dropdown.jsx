@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Dropdown = ({ title, items = [], onChange }) => {
+const Dropdown = ({ title, items = [] }) => {
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState([]);
   const toggle = () => {
@@ -17,7 +17,6 @@ const Dropdown = ({ title, items = [], onChange }) => {
       });
       setSelection([...selectionAfterRemoval]);
     }
-    onChange(item);
   }
 
   function isItemInSelection(item) {
@@ -45,7 +44,7 @@ const Dropdown = ({ title, items = [], onChange }) => {
           <p className="dd-header__title--bold">{title}</p>
         </div>
         <div className="dd-header__action">
-          <p>{open ? "Close" : "Open"}</p>
+          <p>{open ? "Close" : ""}</p>
         </div>
       </div>
       {open && (
