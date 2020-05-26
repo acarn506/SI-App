@@ -2,38 +2,26 @@ import React, { Component } from "react";
 import Dropdown from "../FormElements/Dropdown";
 import Switch from "../FormElements/Switch";
 import "./Dark/main.css";
-import API from "../FormElements/Util/API";
+import axios from "axios";
+
+let host = "http://localhost";
+let port = "1212";
 
 class DashBoard extends Component {
   state = {
-    startDate: new Date(),
     siInfo: {
       sessions: 3,
       attendees: 6,
       totatlVisits: 25
     },
-    idList: ["as3659", "lo6598", "df6549", "as1236"],
-    dateList: ["8/10/20", "8/14/20", "8/26/20"],
-    selctedDate: "",
+    studentList: ["as3659", "lo6598", "df6549", "as1236"],
+    dateList: ["8-10-20", "8-14-20", "8-26-20"],
     studentID: "",
     theme: "light",
     switchValue: false,
     isLoading: true,
     error: null
   };
-
-  async getPosts() {
-    const response = await API.get(`courses/`);
-    try {
-      const siInfo = response.data;
-      this.setState({
-        siInfo: siInfo,
-        isLoading: false
-      });
-    } catch (error) {
-      this.setState({ error, isLoading: false });
-    }
-  }
 
   handleChange = date => {
     this.setState({
@@ -47,34 +35,15 @@ class DashBoard extends Component {
     });
   }
 
-  addStudent() {
-    let idList = [...this.state.idList];
-    if (idList.includes(this.state.studentID)) {
-      return;
-    } else {
-      idList.push(this.state.studentID);
-    }
-    this.setState({
-      idList: idList
-    });
-  }
-
   removeStudent() {
-    let idList = [...this.state.idList];
+    let studentList = [...this.state.studentList];
 
-    let newidList = idList.filter(id => {
+    let newStudentList = studentList.filter(id => {
       return id !== this.state.studentID;
     });
 
     this.setState({
-      idList: newidList
-    });
-  }
-
-  dateHandler(date) {
-    console.log("Date", date);
-    this.setState({
-      selctedDate: date
+      studentList: newStudentList
     });
   }
 
@@ -89,15 +58,65 @@ class DashBoard extends Component {
     });
   }
 
+  //***** API calls *****
+
+  //GET SI Info when component mounts
+  async getPosts() {
+    const response = await axios.get(`${host}:${port}/api/course/`);
+    try {
+      const siInfo = response.data;
+      this.setState({
+        siInfo: siInfo,
+        isLoading: false
+      });
+    } catch (error) {
+      this.setState({ error, isLoading: false });
+    }
+  }
+
+  //GET students based on selected date
+  async getStudentList(event) {
+    console.log("date", event);
+
+    const response = await axios.get(`${host}:${port}/api/course//${event}`);
+    try {
+      const studentList = response.data;
+      this.setState({
+        studentList: studentList,
+        isLoading: false
+      });
+    } catch (error) {
+      this.setState({ error, isLoading: false });
+    }
+  }
+
+  //DELETE student from session
+  async deleteStudent() {
+    this.removeStudent();
+
+    let student = this.state.studentID;
+    const response = await axios.delete(
+      `${host}:${port}/api/course//${student}`
+    );
+    try {
+      console.log(response);
+      console.log(response.data);
+    } catch (error) {
+      this.setState({
+        error
+      });
+    }
+  }
+
   componentDidMount() {
-    this.getPosts();
+    //this.getPosts();
   }
 
   render() {
     const { sessions, attendees, totatlVisits } = this.state.siInfo;
     const { isLoading } = this.state.isLoading;
 
-    let list = this.state.idList.map((id, i) => {
+    let list = this.state.studentList.map((id, i) => {
       return (
         <tr key={i}>
           <td>{i + 1}</td>
@@ -122,6 +141,8 @@ class DashBoard extends Component {
               onColor="#0077FF"
             />
           </div>
+          {this.state.error ? <p>{this.state.error.message}</p> : null}
+
           {!isLoading ? (
             <div className="statContainer">
               <div className="A">
@@ -148,7 +169,7 @@ class DashBoard extends Component {
                 title="Select Course"
                 name="course"
                 items={options}
-                onChange={this.dateHandler.bind(this)}
+                onSelect={this.getStudentList.bind(this)}
               />
             </div>
             <h3 className="listHeader">Attendees</h3>
@@ -162,25 +183,28 @@ class DashBoard extends Component {
                 </thead>
                 <tbody>{list}</tbody>
               </table>
+
               <div className="buttonContainer">
                 {/*<label>RemoveStudent</label> */}
-                <input
-                  className="inputD"
-                  type="text"
-                  value={this.state.studentID}
-                  placeholder="Enter Students ID"
-                  onChange={this.studentIDHandler.bind(this)}
-                />
-                {/* <button type="submit" onClick={this.addStudent.bind(this)}>
-                Add Student
-            </button> */}
-                <button
-                  type="submit"
-                  className="buttonR"
-                  onClick={this.removeStudent.bind(this)}
-                >
-                  Remove Student
-                </button>
+                <div>
+                  <input
+                    className="inputD"
+                    type="text"
+                    name="netid"
+                    value={this.state.studentID}
+                    placeholder="Enter Students ID"
+                    onChange={this.studentIDHandler.bind(this)}
+                  />
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="buttonR"
+                    onClick={this.deleteStudent.bind(this)}
+                  >
+                    Remove Student
+                  </button>
+                </div>
               </div>
             </div>
           </div>

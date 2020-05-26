@@ -192,7 +192,6 @@ thead tr {
 
 .buttonR,
 .inputD {
-  width: 80%;
   margin: 4px;
   color: var(--color-text);
   padding: 0.4rem 1rem;
@@ -201,6 +200,7 @@ thead tr {
 }
 
 .buttonR {
+  width: 160px;
   cursor: pointer;
   padding: 0.4rem 1rem;
   border-radius: 6px;

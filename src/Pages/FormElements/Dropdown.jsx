@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Dropdown = ({ title, items = [] }) => {
+const Dropdown = ({ title, items = [], onSelect }) => {
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState([]);
   const toggle = () => {
@@ -17,6 +17,8 @@ const Dropdown = ({ title, items = [] }) => {
       });
       setSelection([...selectionAfterRemoval]);
     }
+
+    onSelect(item);
   }
 
   function isItemInSelection(item) {

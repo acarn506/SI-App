@@ -16,10 +16,12 @@ import { AuthContext } from "./Pages/FormElements/Context/Context";
 import Aux from "./Hoc/components/Aux";
 import DashBoard from "./Pages/DashBoard/DashBoard";
 import SISignIn from "./Pages/Sign-in/SISignIn";
+import Homepage from "./Pages/Homepage/Homepage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [thanksReg, setThanksReg] = useState(false);
+  const [role, setRole] = useState("");
 
   const login = useCallback(() => {
     setIsLoggedIn(true);
@@ -28,6 +30,11 @@ const App = () => {
   const signIn = useCallback(() => {
     setThanksReg(true);
   }, []);
+
+  const roleHandler = role => {
+    console.log("role", role);
+    setRole(role);
+  };
 
   let routes;
 
@@ -58,20 +65,40 @@ const App = () => {
   } else {
     routes = (
       <div>
-        <ul className="mainNav">
-          <li>
-            <Link to="/sisign-in">Sign-in</Link>
-          </li>
-          <li>
-            <Link to="/registerSI">Register SI</Link>
-          </li>
-          <li>
-            <Link to="/dashBoard">DashBoard</Link>
-          </li>
-        </ul>
+        {role === "SI" ? (
+          <ul className="mainNav">
+            <li>
+              <Link to="/">Homepage</Link>
+            </li>
+            <li>
+              <Link to="/loginSI">Sign-in SI</Link>
+            </li>
+            <li>
+              <Link to="/registerSI">Register SI</Link>
+            </li>
+            <li>
+              <Link to="/dashBoard">DashBoard</Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="mainNav">
+            <li>
+              <Link to="/">Homepage</Link>
+            </li>
+            <li>
+              <Link to="/loginStudent">Sign-in</Link>
+            </li>
+            <li>
+              <Link to="/registerStudent">Register</Link>
+            </li>
+          </ul>
+        )}
 
         <Switch>
-          <Route path="/sign-in" exact>
+          <Route path="/" exact>
+            <Homepage roleHandler={roleHandler} />
+          </Route>
+          <Route path="/loginStudent">
             <SignIn />
           </Route>
           <Route path="/registerStudent">
@@ -80,13 +107,13 @@ const App = () => {
           <Route path="/registerSI">
             <RegisterSI />
           </Route>
-          <Route path="/sisign-in">
+          <Route path="/loginSI">
             <SISignIn />
           </Route>
           <Route path="/dashBoard">
             <DashBoard />
           </Route>
-          <Redirect to="/sign-in" />
+          <Redirect to="/" />
         </Switch>
       </div>
     );
@@ -107,6 +134,12 @@ const App = () => {
       >
         <Router>{routes}</Router>
       </AuthContext.Provider>
+
+      {/*
+      <div className="roleHeader">
+        {role === "SI" ? <h2>Student</h2> : <h2>SI Leader</h2>}
+  </div> */}
+
       <footer className="footer">
         Development Team: &nbsp;
         <a href="https://github.com/Fs4remi">Fatemeh Saremi,</a> &nbsp;
